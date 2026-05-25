@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-05-24T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="quicky-arch-slide" name="Quicky Architecture (4:3)">
+    <mxGraphModel dx="1024" dy="768" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1024" pageHeight="768" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Quicky&lt;/b&gt; — Diploma Marketplace&lt;br&gt;&lt;font size=&quot;3&quot;&gt;Микросервисная архитектура&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=18;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="200" y="8" width="624" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- LAYER 1: CLIENTS -->
+        <!-- ============================================================ -->
+        <mxCell id="l1-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#999999;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="58" width="976" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="l1-label" value="Клиенты" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="28" y="60" width="50" height="16" as="geometry" />
+        </mxCell>
+
+        <mxCell id="c-browser" value="&lt;b&gt;Браузер&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;React SPA :5173&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#666666;strokeWidth=1;fontSize=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="48" y="76" width="130" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="c-api" value="&lt;b&gt;API-клиенты&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;curl, Postman, Go&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#666666;strokeWidth=1;fontSize=10;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="210" y="76" width="130" height="34" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- LAYER 2: GATEWAY -->
+        <!-- ============================================================ -->
+        <mxCell id="l2-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#999999;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="128" width="976" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="l2-label" value="API Gateway" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="28" y="130" width="70" height="16" as="geometry" />
+        </mxCell>
+
+        <mxCell id="gw" value="&lt;b&gt;🛡️ API Gateway&lt;/b&gt; &lt;font size=&quot;2&quot;&gt;Go/chi :8080&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D0D0D0;strokeColor=#555555;strokeWidth=2;fontSize=11;arcSize=10;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="48" y="154" width="180" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="mw" value="&lt;font size=&quot;2&quot;&gt;RequestID → RealIP → CORS → Logging → RateLimit →&lt;/font&gt; &lt;b&gt;Auth(JWT)&lt;/b&gt; &lt;font size=&quot;2&quot;&gt;→ Proxy → сервисы&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8E8E8;strokeColor=#888888;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="252" y="154" width="600" height="36" as="geometry" />
+        </mxCell>
+        <mxCell id="gw-ws" value="&lt;font size=&quot;2&quot;&gt;WS: orders, offers, chat, notifications&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8E8E8;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="876" y="154" width="110" height="36" as="geometry" />
+        </mxCell>
+
+        <!-- Arrows gateway → services -->
+        <mxCell id="a-gw1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="116" y="208" as="sourcePoint" /><mxPoint x="116" y="242" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- LAYER 3: MICROSERVICES -->
+        <!-- ============================================================ -->
+        <mxCell id="l3-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#999999;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="242" width="976" height="175" as="geometry" />
+        </mxCell>
+        <mxCell id="l3-label" value="Микросервисы (Go)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="28" y="244" width="100" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- Row 1 -->
+        <mxCell id="s-auth" value="&lt;b&gt;Auth&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:8081&lt;br&gt;Регистрация, JWT&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="44" y="268" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s-user" value="&lt;b&gt;User&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:8082&lt;br&gt;Профили&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="166" y="268" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s-order" value="&lt;b&gt;Order&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:8083&lt;br&gt;Заказы, отзывы&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="288" y="268" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s-offer" value="&lt;b&gt;Offer&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:8084&lt;br&gt;Офферы&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="410" y="268" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s-chat" value="&lt;b&gt;Chat&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:8085&lt;br&gt;Чаты, WS&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="532" y="268" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s-file" value="&lt;b&gt;File&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:8086&lt;br&gt;MinIO S3&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="654" y="268" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s-notif" value="&lt;b&gt;Notification&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:8087&lt;br&gt;Push + Email&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="776" y="268" width="110" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="s-mail" value="&lt;b&gt;Mail&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Kafka only&lt;br&gt;SMTP mail.ru&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="898" y="268" width="90" height="52" as="geometry" />
+        </mxCell>
+
+        <!-- Internal arrows: Offer→Order -->
+        <mxCell id="a-offer-order" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=5;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="465" y="268" as="sourcePoint" />
+            <mxPoint x="343" y="268" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-offer-order-lbl" value="AssignOrder" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=7;fontColor=#555555;fontStyle=2;" vertex="1" connectable="0" parent="a-offer-order">
+          <mxGeometry x="-0.1" y="1" relative="1" as="geometry"><mxPoint x="-60" y="-10" as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Internal communication note -->
+        <mxCell id="s-note" value="&lt;font size=&quot;2&quot;&gt;&lt;b&gt;Внутренняя коммуникация:&lt;/b&gt; Gateway → сервисы (HTTP прокси, заголовки X-User-Id / X-User-Role / X-User-Email с HMAC) | Offer → Order (AssignOrder) | Сервисы → Kafka → Notification/Mail&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#BBBBBB;strokeWidth=1;fontSize=10;arcSize=8;align=left;spacingLeft=6;" vertex="1" parent="1">
+          <mxGeometry x="44" y="336" width="944" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- LAYER 4: INFRASTRUCTURE -->
+        <!-- ============================================================ -->
+        <mxCell id="l4-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#999999;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="427" width="976" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="l4-label" value="Инфраструктура (Docker Compose)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="28" y="429" width="170" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- PostgreSQL Group -->
+        <mxCell id="pg-group" value="&lt;b&gt;PostgreSQL 16 (7 инстансов)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#888888;fontSize=10;fontStyle=1;startSize=20;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="44" y="453" width="468" height="67" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-1" value="&lt;font size=&quot;2&quot;&gt;auth_db :5432&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="pg-group">
+          <mxGeometry x="8" y="28" width="62" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-2" value="&lt;font size=&quot;2&quot;&gt;user_db :5433&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="pg-group">
+          <mxGeometry x="76" y="28" width="62" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-3" value="&lt;font size=&quot;2&quot;&gt;order_db :5434&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="pg-group">
+          <mxGeometry x="144" y="28" width="66" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-4" value="&lt;font size=&quot;2&quot;&gt;offer_db :5435&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="pg-group">
+          <mxGeometry x="216" y="28" width="64" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-5" value="&lt;font size=&quot;2&quot;&gt;chat_db :5436&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="pg-group">
+          <mxGeometry x="286" y="28" width="62" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-6" value="&lt;font size=&quot;2&quot;&gt;file_db :5437&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="pg-group">
+          <mxGeometry x="354" y="28" width="56" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="pg-7" value="&lt;font size=&quot;2&quot;&gt;notif_db :5438&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="pg-group">
+          <mxGeometry x="416" y="28" width="44" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- Redis -->
+        <mxCell id="i-redis" value="&lt;b&gt;Redis 7&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:6379&lt;br&gt;rate-limit, tokens&lt;br&gt;chat pub/sub&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="530" y="460" width="100" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Kafka -->
+        <mxCell id="i-kafka" value="&lt;b&gt;Kafka 3.8&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:9092 / :29092&lt;br&gt;KRaft | 15 топиков&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="648" y="460" width="120" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- MinIO -->
+        <mxCell id="i-minio" value="&lt;b&gt;MinIO&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:9000 (S3)&lt;br&gt;diploma-files&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="786" y="460" width="100" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Mailpit -->
+        <mxCell id="i-mail" value="&lt;b&gt;Mailpit&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;:1025 SMTP&lt;br&gt;:8025 UI&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="460" width="88" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- LAYER 5: KAFKA FLOW -->
+        <!-- ============================================================ -->
+        <mxCell id="l5-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8F8F8;strokeColor=#999999;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="542" width="976" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="l5-label" value="Kafka Event Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="28" y="544" width="100" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- Producers -->
+        <mxCell id="k-prod" value="&lt;b&gt;Продюсеры&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Auth · Order&lt;br&gt;Offer · Chat&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="44" y="568" width="110" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Topics -->
+        <mxCell id="k-topics" value="&lt;b&gt;15 Kafka Topics&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;user.* (2) | order.* (4) | offer.* (5)&lt;br&gt;review.* | complaint.* (2) | chat.* | email.*&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#555555;strokeWidth=2;fontSize=9;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="210" y="568" width="350" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Consumers -->
+        <mxCell id="k-cons" value="&lt;b&gt;Консьюмеры&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Notification Service → WebSocket push&lt;br&gt;Mail Service → SMTP (mail.ru:465)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#555555;strokeWidth=1;fontSize=10;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="616" y="568" width="220" height="55" as="geometry" />
+        </mxCell>
+
+        <!-- Kafka arrows -->
+        <mxCell id="a-k1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="154" y="596" as="sourcePoint" />
+            <mxPoint x="210" y="596" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-k2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="596" as="sourcePoint" />
+            <mxPoint x="616" y="596" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- LAYER 6: STACK SUMMARY -->
+        <!-- ============================================================ -->
+        <mxCell id="l6-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#999999;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="657" width="976" height="62" as="geometry" />
+        </mxCell>
+        <mxCell id="l6-label" value="Технологический стек" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#999999;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="28" y="659" width="120" height="16" as="geometry" />
+        </mxCell>
+
+        <mxCell id="stack" value="&lt;font size=&quot;2&quot;&gt;&lt;b&gt;Backend:&lt;/b&gt; Go 1.25, chi/v5, JWT RS256, PostgreSQL 16, Redis 7, Kafka 3.8, MinIO&lt;br&gt;&lt;b&gt;Frontend:&lt;/b&gt; React 19, TypeScript, Vite, Tailwind CSS, MapLibre GL&lt;br&gt;&lt;b&gt;DevOps:&lt;/b&gt; Docker Compose, HMAC internal auth, Rate-limit (100/min), OpenAPI 3.0 (Scalar UI)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#BBBBBB;strokeWidth=1;fontSize=10;arcSize=8;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="44" y="677" width="940" height="34" as="geometry" />
+        </mxCell>
+
+        <!-- Footer -->
+        <mxCell id="footer" value="&lt;font size=&quot;2&quot;&gt;Всего: 9 микросервисов | 7 PostgreSQL | 15 Kafka-топиков | 4 WebSocket-канала | ~55 API-эндпоинтов&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="200" y="725" width="624" height="20" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

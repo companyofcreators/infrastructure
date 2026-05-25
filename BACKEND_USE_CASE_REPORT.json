@@ -1,0 +1,292 @@
+[
+  {
+    "test": "1.1 Профиль без авторизации → 401",
+    "status": "PASS",
+    "details": "HTTP 401"
+  },
+  {
+    "test": "1.2a Регистрация: пустой body → ошибка",
+    "status": "PASS",
+    "details": "HTTP 422"
+  },
+  {
+    "test": "1.2b Регистрация: слабый пароль → ошибка",
+    "status": "PASS",
+    "details": "HTTP 422"
+  },
+  {
+    "test": "1.2c Регистрация: валидные данные → успех",
+    "status": "PASS",
+    "details": "User: test_068e4fe1@example.com, Roles: ['user']"
+  },
+  {
+    "test": "1.2d Регистрация: дубликат email → ошибка",
+    "status": "PASS",
+    "details": "HTTP 409: конфликт"
+  },
+  {
+    "test": "1.3a Вход: неверный пароль → ошибка",
+    "status": "PASS",
+    "details": "{\"error\":\"не авторизован\",\"message\":\"неверные учётные данные\"}\n"
+  },
+  {
+    "test": "1.3b Вход: admin → успех",
+    "status": "PASS",
+    "details": "User: admin@example.com, Roles: ['admin', 'user']"
+  },
+  {
+    "test": "1.4 GET /categories (публичный)",
+    "status": "PASS",
+    "details": "22 категорий"
+  },
+  {
+    "test": "1.5 Scalar UI /docs",
+    "status": "PASS",
+    "details": "HTTP 200"
+  },
+  {
+    "test": "2.0 Логин customer",
+    "status": "PASS",
+    "details": "ID: b0000000-0000-0000-0000-000000000002, Roles: ['user']"
+  },
+  {
+    "test": "2.1 GET /profile",
+    "status": "PASS",
+    "details": "Profile: True, Roles: ['user']"
+  },
+  {
+    "test": "2.2 GET /orders",
+    "status": "PASS",
+    "details": "20 заказов"
+  },
+  {
+    "test": "2.3a POST /orders (создание)",
+    "status": "PASS",
+    "details": "ID: b03681a5..., Status: created"
+  },
+  {
+    "test": "2.4 GET /orders/:id (детали)",
+    "status": "PASS",
+    "details": "Title: Test order from use case test"
+  },
+  {
+    "test": "2.5 GET /orders/:id/history",
+    "status": "PASS",
+    "details": "Событий: 1"
+  },
+  {
+    "test": "2.6 GET /orders?status=created",
+    "status": "PASS",
+    "details": "Найдено: 20"
+  },
+  {
+    "test": "2.7a PATCH /users/:id (свой профиль)",
+    "status": "PASS",
+    "details": "Updated: UpdatedName"
+  },
+  {
+    "test": "2.7b PATCH /users/:id (чужой) → запрет",
+    "status": "PASS",
+    "details": "HTTP 403"
+  },
+  {
+    "test": "3.0 Логин master",
+    "status": "PASS",
+    "details": "Roles: ['master', 'user']"
+  },
+  {
+    "test": "3.1 GET /masters/:id",
+    "status": "PASS",
+    "details": "Rating: 4.85, Completed: 42"
+  },
+  {
+    "test": "3.2 PATCH /masters/:id",
+    "status": "PASS",
+    "details": "Desc: Профессиональный мастер на все руки"
+  },
+  {
+    "test": "3.3a POST /offers (отправка)",
+    "status": "PASS",
+    "details": "Offer: 1fbd9438..., Status: pending"
+  },
+  {
+    "test": "3.4 GET /offers?order_id=...",
+    "status": "PASS",
+    "details": "Офферов: 1"
+  },
+  {
+    "test": "3.5a POST /offers/:id/counter (контр-оффер)",
+    "status": "PASS",
+    "details": "Type: offer.countered"
+  },
+  {
+    "test": "3.5b GET /offers/:id/history",
+    "status": "PASS",
+    "details": "Событий: ?"
+  },
+  {
+    "test": "3.6 POST /offers/:id/withdraw (отзыв)",
+    "status": "PASS",
+    "details": "Оффер отозван"
+  },
+  {
+    "test": "3.7a POST /offers/:id/accept",
+    "status": "PASS",
+    "details": "Status: accepted"
+  },
+  {
+    "test": "3.7b Заказ → assigned после accept",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "3.8 GET /reviews/user/:id (свои отзывы)",
+    "status": "PASS",
+    "details": "Отзывов: 12"
+  },
+  {
+    "test": "3.9a DELETE /users/:id/roles/master (деактивация)",
+    "status": "PASS",
+    "details": "Роль мастера отключена"
+  },
+  {
+    "test": "3.9b POST /users/:id/roles/master (активация)",
+    "status": "PASS",
+    "details": "Роль мастера включена"
+  },
+  {
+    "test": "4.1a POST /categories (создание)",
+    "status": "PASS",
+    "details": "ID: ?..., Name: ?"
+  },
+  {
+    "test": "4.1d Customer → POST /categories → запрет",
+    "status": "PASS",
+    "details": "HTTP 403"
+  },
+  {
+    "test": "4.2 DELETE /admin/users/:id",
+    "status": "PASS",
+    "details": "User dc35df6a... deleted"
+  },
+  {
+    "test": "4.2b Customer → DELETE /admin/users → запрет",
+    "status": "PASS",
+    "details": "HTTP 403"
+  },
+  {
+    "test": "4.3a GET /complaints (admin)",
+    "status": "PASS",
+    "details": "Жалоб: 14"
+  },
+  {
+    "test": "5.1 POST /complaints (создание)",
+    "status": "PASS",
+    "details": "ID: ?..., Status: ?"
+  },
+  {
+    "test": "5.2 Customer → GET /complaints → запрет",
+    "status": "PASS",
+    "details": "HTTP 403"
+  },
+  {
+    "test": "6.1 GET /chats (customer)",
+    "status": "PASS",
+    "details": "Чатов: 18"
+  },
+  {
+    "test": "6.2a POST /chats (создание)",
+    "status": "PASS",
+    "details": "Chat: ffacd782..."
+  },
+  {
+    "test": "6.3 POST /chats/:id/messages",
+    "status": "PASS",
+    "details": "Msg: Здравствуйте! Когда сможете приступить?"
+  },
+  {
+    "test": "6.4 GET /chats/:id/messages",
+    "status": "PASS",
+    "details": "Сообщений: ?"
+  },
+  {
+    "test": "6.5 POST /chats/:id/read",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "7.1 GET /notifications",
+    "status": "PASS",
+    "details": "Уведомлений: ?"
+  },
+  {
+    "test": "7.2 GET /notifications/unread-count",
+    "status": "PASS",
+    "details": "Непрочитанных: 5"
+  },
+  {
+    "test": "7.3 POST /notifications/read-all",
+    "status": "PASS",
+    "details": ""
+  },
+  {
+    "test": "8.1 GET /files",
+    "status": "PASS",
+    "details": "Файлов: ?"
+  },
+  {
+    "test": "8.2 POST /files/upload",
+    "status": "PASS",
+    "details": "File ID: ?..., Size: ?"
+  },
+  {
+    "test": "9.1 WS: /orders/ws → upgrade OK",
+    "status": "PASS",
+    "details": "101 Switching Protocols"
+  },
+  {
+    "test": "9.2 WS: /orders/ws без токена → 401",
+    "status": "PASS",
+    "details": "Доступ запрещён"
+  },
+  {
+    "test": "10.1 Текущий статус заказа",
+    "status": "PASS",
+    "details": "Status: assigned"
+  },
+  {
+    "test": "10.2 PATCH /orders/:id/status → in_progress",
+    "status": "PASS",
+    "details": "Статус обновлён"
+  },
+  {
+    "test": "10.3 POST /orders/:id/complete → completed",
+    "status": "PASS",
+    "details": "Заказ завершён"
+  },
+  {
+    "test": "10.4 POST /reviews (отзыв)",
+    "status": "PASS",
+    "details": "Rating: ?"
+  },
+  {
+    "test": "10.5 Рейтинг мастера обновлён",
+    "status": "PASS",
+    "details": "Rating: 4.85, Completed: 42"
+  },
+  {
+    "test": "11.1 Customer → POST /offers → запрет",
+    "status": "PASS",
+    "details": "HTTP 403"
+  },
+  {
+    "test": "11.2 Customer → PATCH /orders/:id/status → запрет",
+    "status": "PASS",
+    "details": "HTTP 403"
+  },
+  {
+    "test": "11.3 Customer → GET /complaints → запрет",
+    "status": "PASS",
+    "details": "HTTP 403"
+  }
+]

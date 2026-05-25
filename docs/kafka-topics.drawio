@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-05-24T00:00:00.000Z" agent="Claude" version="24.0.0">
+  <diagram id="kafka-topics" name="Kafka Topics">
+    <mxGraphModel dx="1024" dy="768" grid="1" gridSize="8" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1024" pageHeight="768" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Quicky&lt;/b&gt; — Kafka Event Flow&lt;br&gt;&lt;font size=&quot;3&quot;&gt;15 топиков · KRaft (без Zookeeper) · acks=all · :29092 (внешний listener)&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=16;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="100" y="8" width="824" height="44" as="geometry" />
+        </mxCell>
+
+        <!-- ================================================================== -->
+        <!-- PRODUCERS COLUMN -->
+        <!-- ================================================================== -->
+        <mxCell id="col-prod-header" value="&lt;b&gt;ПРОДЮСЕРЫ&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;(кто публикует)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#333333;strokeColor=#222222;strokeWidth=1;fontSize=11;arcSize=8;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="64" width="160" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="prod-auth" value="&lt;b&gt;Auth Service&lt;/b&gt; :8081" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#888888;strokeWidth=1;fontSize=10;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="44" y="120" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="prod-order" value="&lt;b&gt;Order Service&lt;/b&gt; :8083" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#888888;strokeWidth=1;fontSize=10;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="44" y="220" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="prod-offer" value="&lt;b&gt;Offer Service&lt;/b&gt; :8084" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#888888;strokeWidth=1;fontSize=10;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="44" y="340" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="prod-chat" value="&lt;b&gt;Chat Service&lt;/b&gt; :8085" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#888888;strokeWidth=1;fontSize=10;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="44" y="430" width="120" height="32" as="geometry" />
+        </mxCell>
+        <mxCell id="prod-notif" value="&lt;b&gt;Notification Svc&lt;/b&gt; :8087" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#888888;strokeWidth=1;fontSize=10;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="44" y="500" width="120" height="32" as="geometry" />
+        </mxCell>
+
+        <!-- Producer → Topics arrows -->
+        <mxCell id="a-pauth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="164" y="136" as="sourcePoint" /><mxPoint x="236" y="136" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a-porder" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="164" y="236" as="sourcePoint" /><mxPoint x="236" y="236" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a-poffer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="164" y="356" as="sourcePoint" /><mxPoint x="236" y="356" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a-pchat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="164" y="446" as="sourcePoint" /><mxPoint x="236" y="446" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a-pnotif" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="164" y="516" as="sourcePoint" /><mxPoint x="236" y="516" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- ================================================================== -->
+        <!-- TOPICS COLUMN -->
+        <!-- ================================================================== -->
+        <mxCell id="col-topic-header" value="&lt;b&gt;KAFKA TOPICS (15)&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Apache Kafka 3.8 · KRaft&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#333333;strokeWidth=2;fontSize=11;arcSize=8;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="236" y="64" width="300" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- Auth topics (2) -->
+        <mxCell id="t-group-auth" value="&lt;b&gt;Auth (2)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BBBBBB;fontSize=9;fontStyle=1;startSize=18;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="248" y="108" width="132" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="t-user-created" value="user.created" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-auth">
+          <mxGeometry x="8" y="24" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-user-verify" value="user.verification.created" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-auth">
+          <mxGeometry x="8" y="42" width="116" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- Order topics (4) -->
+        <mxCell id="t-group-order" value="&lt;b&gt;Order (4)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BBBBBB;fontSize=9;fontStyle=1;startSize=18;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="248" y="188" width="132" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="t-order-created" value="order.created" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-order">
+          <mxGeometry x="8" y="24" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-order-assigned" value="order.assigned" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-order">
+          <mxGeometry x="8" y="42" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-order-completed" value="order.completed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-order">
+          <mxGeometry x="8" y="60" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-order-cancelled" value="order.cancelled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-order">
+          <mxGeometry x="8" y="78" width="116" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- Offer topics (5) -->
+        <mxCell id="t-group-offer" value="&lt;b&gt;Offer (5)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BBBBBB;fontSize=9;fontStyle=1;startSize=18;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="248" y="304" width="132" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="t-offer-sent" value="offer.sent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-offer">
+          <mxGeometry x="8" y="24" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-offer-accepted" value="offer.accepted" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-offer">
+          <mxGeometry x="8" y="42" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-offer-rejected" value="offer.rejected" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-offer">
+          <mxGeometry x="8" y="60" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-offer-countered" value="offer.countered" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-offer">
+          <mxGeometry x="8" y="78" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-offer-withdrawn" value="offer.withdrawn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-offer">
+          <mxGeometry x="8" y="96" width="116" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- Review + Complaint + Chat + Email topics (4) -->
+        <mxCell id="t-group-other" value="&lt;b&gt;Остальные (4)&lt;/b&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BBBBBB;fontSize=9;fontStyle=1;startSize=18;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="248" y="440" width="132" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="t-review" value="review.created" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-other">
+          <mxGeometry x="8" y="24" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-complaint-cr" value="complaint.created" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-other">
+          <mxGeometry x="8" y="42" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-complaint-up" value="complaint.updated" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-other">
+          <mxGeometry x="8" y="60" width="116" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="t-chat-sent" value="chat.message.sent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#AAAAAA;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="t-group-other">
+          <mxGeometry x="8" y="78" width="116" height="16" as="geometry" />
+        </mxCell>
+
+        <!-- Email topic (separate, important) -->
+        <mxCell id="t-email" value="&lt;b&gt;email.delivery&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Notification → Mail&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#333333;strokeColor=#222222;strokeWidth=1;fontSize=9;arcSize=6;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="404" y="450" width="120" height="34" as="geometry" />
+        </mxCell>
+
+        <!-- ================================================================== -->
+        <!-- CONSUMERS COLUMN -->
+        <!-- ================================================================== -->
+        <mxCell id="col-cons-header" value="&lt;b&gt;КОНСЬЮМЕРЫ&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;(кто читает)&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#333333;strokeColor=#222222;strokeWidth=1;fontSize=11;arcSize=8;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="588" y="64" width="160" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cons-notif" value="&lt;b&gt;Notification Service&lt;/b&gt; :8087&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Читает: user.*, order.*, offer.*,&lt;br&gt;review.*, complaint.*, chat.*&lt;br&gt;→ Создаёт уведомления в БД&lt;br&gt;→ Push через WebSocket&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="608" y="120" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cons-mail" value="&lt;b&gt;Mail Service&lt;/b&gt; (Kafka-only)&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Читает: user.verification.created,&lt;br&gt;email.delivery&lt;br&gt;→ HTML-шаблоны (рус.)&lt;br&gt;→ SMTP smtp.mail.ru:465&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;align=left;spacingLeft=8;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="608" y="260" width="240" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="cons-user" value="&lt;b&gt;User Service&lt;/b&gt; :8082&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Читает: user.created, review.created&lt;br&gt;→ Создаёт профиль пользователя&lt;br&gt;→ Обновляет рейтинг мастера&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="608" y="400" width="240" height="65" as="geometry" />
+        </mxCell>
+
+        <!-- Consumer arrows -->
+        <mxCell id="a-cnotif" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="536" y="160" as="sourcePoint" /><mxPoint x="608" y="160" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a-cmail" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="536" y="300" as="sourcePoint" /><mxPoint x="608" y="300" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="a-cuser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="536" y="432" as="sourcePoint" /><mxPoint x="608" y="432" as="targetPoint" /></mxGeometry>
+        </mxCell>
+
+        <!-- ================================================================== -->
+        <!-- DELIVERY FLOW (bottom) -->
+        <!-- ================================================================== -->
+        <mxCell id="flow-bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#BBBBBB;strokeWidth=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="566" width="976" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-label" value="&lt;b&gt;Цепочка доставки уведомлений:&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#555555;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="36" y="570" width="180" height="16" as="geometry" />
+        </mxCell>
+
+        <mxCell id="flow1" value="&lt;b&gt;Сервис&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;Offer/Order/Chat&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="44" y="590" width="100" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-arr1" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="148" y="603" as="sourcePoint" /><mxPoint x="176" y="603" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="flow2" value="&lt;b&gt;Kafka&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;event&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#555555;strokeWidth=2;fontSize=9;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="180" y="590" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-arr2" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="264" y="603" as="sourcePoint" /><mxPoint x="296" y="603" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="flow3" value="&lt;b&gt;Notification Svc&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;создаёт в БД&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="300" y="590" width="120" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-arr3" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="424" y="603" as="sourcePoint" /><mxPoint x="456" y="603" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="flow4a" value="&lt;b&gt;WebSocket&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;push&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="460" y="586" width="80" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-arr3b" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="424" y="595" as="sourcePoint" /><mxPoint x="456" y="595" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="flow4b" value="&lt;b&gt;Kafka&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;email.delivery&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E0E0E0;strokeColor=#555555;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="580" y="586" width="100" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-arr4" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="684" y="603" as="sourcePoint" /><mxPoint x="716" y="603" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="flow5" value="&lt;b&gt;Mail Service&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt;SMTP mail.ru:465&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EEEEEE;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="586" width="120" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="flow-arr5" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=1;strokeColor=#555555;endArrow=block;endFill=1;endSize=5;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="844" y="603" as="sourcePoint" /><mxPoint x="876" y="603" as="targetPoint" /></mxGeometry>
+        </mxCell>
+        <mxCell id="flow6" value="&lt;b&gt;Пользователь&lt;/b&gt;&lt;br&gt;&lt;font size=&quot;2&quot;&gt; email&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#888888;strokeWidth=1;fontSize=9;arcSize=6;" vertex="1" parent="1">
+          <mxGeometry x="880" y="590" width="100" height="26" as="geometry" />
+        </mxCell>
+
+        <!-- ================================================================== -->
+        <!-- FOOTER -->
+        <!-- ================================================================== -->
+        <mxCell id="footer" value="&lt;font size=&quot;2&quot;&gt;&lt;b&gt;Конфигурация:&lt;/b&gt; acks=all · WriteTimeout=10s · ReadTimeout=5s · ConsumerGroups: notification-service, mail-service, user-service&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=10;fontColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="100" y="640" width="824" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ================================================================== -->
+        <!-- TOPIC SUMMARY TABLE -->
+        <!-- ================================================================== -->
+        <mxCell id="table-title" value="&lt;b&gt;Сводка топиков&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;fontSize=11;fontColor=#000000;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="668" width="120" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Table header -->
+        <mxCell id="th1" value="&lt;b&gt;Топик&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#333333;strokeWidth=1;fontSize=8;arcSize=0;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="24" y="690" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="th2" value="&lt;b&gt;Продюсер&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#333333;strokeWidth=1;fontSize=8;arcSize=0;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="204" y="690" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="th3" value="&lt;b&gt;Консьюмер(ы)&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#333333;strokeWidth=1;fontSize=8;arcSize=0;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="324" y="690" width="200" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="th4" value="&lt;b&gt;Результат&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#555555;strokeColor=#333333;strokeWidth=1;fontSize=8;arcSize=0;fontColor=#FFFFFF;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="524" y="690" width="476" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- Table rows - just a few key ones for compactness -->
+        <mxCell id="tr-rows" value="&lt;font size=&quot;2&quot;&gt;&lt;table border=&quot;0&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot; width=&quot;100%&quot;&gt;
+&lt;tr bgcolor=&quot;#FAFAFA&quot;&gt;&lt;td width=&quot;180&quot;&gt;user.created&lt;/td&gt;&lt;td width=&quot;120&quot;&gt;Auth&lt;/td&gt;&lt;td width=&quot;200&quot;&gt;Notification, User&lt;/td&gt;&lt;td width=&quot;476&quot;&gt;Создаются уведомления + профиль в user-service&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FFFFFF&quot;&gt;&lt;td&gt;user.verification.created&lt;/td&gt;&lt;td&gt;Auth&lt;/td&gt;&lt;td&gt;Mail&lt;/td&gt;&lt;td&gt;Отправка email верификации&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FAFAFA&quot;&gt;&lt;td&gt;order.created&lt;/td&gt;&lt;td&gt;Order&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Уведомления мастерам о новом заказе&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FFFFFF&quot;&gt;&lt;td&gt;order.assigned&lt;/td&gt;&lt;td&gt;Order&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Уведомление клиенту и мастеру&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FAFAFA&quot;&gt;&lt;td&gt;order.completed&lt;/td&gt;&lt;td&gt;Order&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Уведомление мастеру о завершении&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FFFFFF&quot;&gt;&lt;td&gt;order.cancelled&lt;/td&gt;&lt;td&gt;Order&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Уведомление об отмене&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FAFAFA&quot;&gt;&lt;td&gt;offer.sent / accepted / rejected / countered / withdrawn&lt;/td&gt;&lt;td&gt;Offer&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Уведомления о действиях с офферами (5 топиков)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FFFFFF&quot;&gt;&lt;td&gt;review.created&lt;/td&gt;&lt;td&gt;Order&lt;/td&gt;&lt;td&gt;Notification, User&lt;/td&gt;&lt;td&gt;Уведомление + пересчёт рейтинга мастера&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FAFAFA&quot;&gt;&lt;td&gt;complaint.created / updated&lt;/td&gt;&lt;td&gt;Order&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Уведомления модераторам (2 топика)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FFFFFF&quot;&gt;&lt;td&gt;chat.message.sent&lt;/td&gt;&lt;td&gt;Chat&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Уведомление о новом сообщении&lt;/td&gt;&lt;/tr&gt;
+&lt;tr bgcolor=&quot;#FAFAFA&quot;&gt;&lt;td&gt;email.delivery&lt;/td&gt;&lt;td&gt;Notification&lt;/td&gt;&lt;td&gt;Mail&lt;/td&gt;&lt;td&gt;Отправка email через SMTP mail.ru:465&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="24" y="710" width="976" height="50" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

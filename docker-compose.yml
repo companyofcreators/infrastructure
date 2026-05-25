@@ -1,0 +1,297 @@
+# =============================================================================
+# Diploma Marketplace - Infrastructure Services
+# =============================================================================
+# This compose file defines all infrastructure dependencies for the
+# diploma marketplace microservices platform.
+#
+# Services:
+#   - PostgreSQL (7 instances, one per service)
+#   - Redis 7 (rate limiting, refresh tokens, pub/sub, caching, geolocation)
+#   - Kafka KRaft (event streaming, no Zookeeper)
+#   - Kafka UI (web console for Kafka monitoring)
+#   - MinIO (S3-compatible object storage)
+#   - Mailpit (dev SMTP + web UI for email testing)
+#
+# Usage:
+#   docker compose up -d          Start everything
+#   docker compose down           Stop everything
+#   docker compose down -v        Destroy everything including volumes
+#
+# Internal Header Signing:
+#   All application services (api-gateway, auth, user, order, offer, chat,
+#   file, notification) must share the same HEADER_HMAC_KEY for inter-service
+#   header authentication. The API gateway signs X-User-Id, X-User-Email,
+#   and X-User-Role headers with HMAC-SHA256; downstream services verify
+#   the X-Signature header before trusting those values.
+# =============================================================================
+
+x-app-common: &app-common
+  environment:
+    HEADER_HMAC_KEY: &hmac_key diploma-internal-hmac-secret-key-2026
+
+x-postgres-common: &postgres-common
+  image: postgres:16-alpine
+  restart: unless-stopped
+  environment:
+    POSTGRES_USER: &pg_user postgres
+    POSTGRES_PASSWORD: &pg_password postgres
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U postgres"]
+    interval: 5s
+    timeout: 5s
+    retries: 5
+    start_period: 10s
+  networks:
+    - diploma-network
+
+x-kafka-common: &kafka-common
+  image: apache/kafka:3.8.0
+  restart: unless-stopped
+  environment:
+    # KRaft mode configuration (no Zookeeper required)
+    KAFKA_NODE_ID: &kafka_node_id 1
+    KAFKA_PROCESS_ROLES: controller,broker
+    KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+    KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:29092
+    KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:29092
+    KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT
+    KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+    KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+    KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+    KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+    KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+  networks:
+    - diploma-network
+
+services:
+  # =========================================================================
+  # PostgreSQL Instances
+  # =========================================================================
+
+  postgres-auth:
+    <<: *postgres-common
+    container_name: postgres-auth
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_DB: auth_db
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
+
+  postgres-user:
+    <<: *postgres-common
+    container_name: postgres-user
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_DB: user_db
+    volumes:
+      - postgres_user_data:/var/lib/postgresql/data
+
+  postgres-order:
+    <<: *postgres-common
+    container_name: postgres-order
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_DB: order_db
+    volumes:
+      - postgres_order_data:/var/lib/postgresql/data
+
+  postgres-offer:
+    <<: *postgres-common
+    container_name: postgres-offer
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_DB: offer_db
+    volumes:
+      - postgres_offer_data:/var/lib/postgresql/data
+
+  postgres-chat:
+    <<: *postgres-common
+    container_name: postgres-chat
+    ports:
+      - "5436:5432"
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_DB: chat_db
+    volumes:
+      - postgres_chat_data:/var/lib/postgresql/data
+
+  postgres-file:
+    <<: *postgres-common
+    container_name: postgres-file
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_DB: file_db
+    volumes:
+      - postgres_file_data:/var/lib/postgresql/data
+
+  postgres-notification:
+    <<: *postgres-common
+    container_name: postgres-notification
+    ports:
+      - "5438:5432"
+    environment:
+      POSTGRES_USER: *pg_user
+      POSTGRES_PASSWORD: *pg_password
+      POSTGRES_DB: notification_db
+    volumes:
+      - postgres_notification_data:/var/lib/postgresql/data
+
+  # =========================================================================
+  # Redis 7
+  # =========================================================================
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server
+      --appendonly yes
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - diploma-network
+
+  # =========================================================================
+  # Kafka KRaft (no Zookeeper)
+  # =========================================================================
+
+  kafka:
+    <<: *kafka-common
+    container_name: kafka
+    ports:
+      - "9092:9092"    # Internal listener (for services on same network)
+      - "29092:29092"  # External listener (for host machine access)
+    volumes:
+      - kafka_data:/tmp/kraft-combined-logs
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  # =========================================================================
+  # Kafka UI (Web Console)
+  # =========================================================================
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    restart: unless-stopped
+    ports:
+      - "8088:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: diploma-kafka
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      DYNAMIC_CONFIG_ENABLED: "true"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - diploma-network
+
+  # =========================================================================
+  # MinIO (S3-compatible object storage)
+  # =========================================================================
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - diploma-network
+
+  # =========================================================================
+  # Mailpit (dev SMTP + web UI)
+  # =========================================================================
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpit
+    restart: unless-stopped
+    environment:
+      MP_DATABASE: /data/mailpit.db
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    volumes:
+      - mailpit_data:/data
+    networks:
+      - diploma-network
+
+  # =========================================================================
+  # Postfix SMTP (self-hosted mail server for outgoing delivery)
+  # =========================================================================
+  postfix:
+    image: boky/postfix:latest
+    container_name: diploma-postfix
+    restart: unless-stopped
+    environment:
+      ALLOWED_SENDER_DOMAINS: diploma.local
+      RELAYHOST: ""
+      MESSAGE_SIZE_LIMIT: "52428800"
+      MYNETWORKS: "172.0.0.0/8,10.0.0.0/8,192.168.0.0/16"
+    ports:
+      - "1026:25"
+    networks:
+      - diploma-network
+
+volumes:
+  redis_data:
+  kafka_data:
+  postgres_auth_data:
+  postgres_user_data:
+  postgres_order_data:
+  postgres_offer_data:
+  postgres_chat_data:
+  postgres_file_data:
+  postgres_notification_data:
+  minio_data:
+  mailpit_data:
+
+networks:
+  diploma-network:
+    name: diploma-network
+    driver: bridge

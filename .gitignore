@@ -1,0 +1,7 @@
+﻿.env
+*.log
+logs/
+keys/private.pem
+*.run.*.log
+manual_cookies*.txt
+runtime-pids.json
