@@ -197,6 +197,47 @@ services:
       retries: 10
       start_period: 30s
 
+  kafka-init:
+    image: apache/kafka:3.8.0
+    container_name: kafka-init
+    depends_on:
+      kafka:
+        condition: service_healthy
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        topics="
+        auth.login
+        auth.logout
+        user.created
+        user.verification.created
+        order.created
+        order.assigned
+        order.completed
+        order.cancelled
+        offer.created
+        offer.accepted
+        offer.rejected
+        offer.countered
+        offer.withdrawn
+        chat.message.sent
+        notification.created
+        notification.email
+        notification.push
+        complaint.created
+        complaint.updated
+        review.created
+        file.uploaded
+        file.deleted
+        "
+        for topic in $$topics; do
+          /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic "$$topic" --partitions 1 --replication-factor 1
+        done
+    networks:
+      - diploma-network
+
   # =========================================================================
   # Kafka UI (Web Console)
   # =========================================================================
@@ -214,6 +255,8 @@ services:
     depends_on:
       kafka:
         condition: service_healthy
+      kafka-init:
+        condition: service_completed_successfully
     networks:
       - diploma-network
 
