@@ -72,7 +72,7 @@ services:
     <<: *postgres-common
     container_name: postgres-auth
     ports:
-      - "5432:5432"
+      - "15432:5432"
     environment:
       POSTGRES_USER: *pg_user
       POSTGRES_PASSWORD: *pg_password
@@ -287,7 +287,7 @@ services:
       - diploma-network
 
   # =========================================================================
-  # Mailpit (dev SMTP + web UI)
+  # Mailpit (dev SMTP + web UI for email testing)
   # =========================================================================
 
   mailpit:

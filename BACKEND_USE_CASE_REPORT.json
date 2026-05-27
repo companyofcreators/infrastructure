@@ -17,7 +17,7 @@
   {
     "test": "1.2c Регистрация: валидные данные → успех",
     "status": "PASS",
-    "details": "User: test_068e4fe1@example.com, Roles: ['user']"
+    "details": "User: test_b70d9745@example.com, Roles: ['user']"
   },
   {
     "test": "1.2d Регистрация: дубликат email → ошибка",
@@ -37,7 +37,7 @@
   {
     "test": "1.4 GET /categories (публичный)",
     "status": "PASS",
-    "details": "22 категорий"
+    "details": "27 категорий"
   },
   {
     "test": "1.5 Scalar UI /docs",
@@ -62,7 +62,7 @@
   {
     "test": "2.3a POST /orders (создание)",
     "status": "PASS",
-    "details": "ID: b03681a5..., Status: created"
+    "details": "ID: 6d748947..., Status: created"
   },
   {
     "test": "2.4 GET /orders/:id (детали)",
@@ -97,7 +97,7 @@
   {
     "test": "3.1 GET /masters/:id",
     "status": "PASS",
-    "details": "Rating: 4.85, Completed: 42"
+    "details": "Rating: 4.85, Completed: 44"
   },
   {
     "test": "3.2 PATCH /masters/:id",
@@ -107,7 +107,7 @@
   {
     "test": "3.3a POST /offers (отправка)",
     "status": "PASS",
-    "details": "Offer: 1fbd9438..., Status: pending"
+    "details": "Offer: cc74bdf9..., Status: pending"
   },
   {
     "test": "3.4 GET /offers?order_id=...",
@@ -142,7 +142,7 @@
   {
     "test": "3.8 GET /reviews/user/:id (свои отзывы)",
     "status": "PASS",
-    "details": "Отзывов: 12"
+    "details": "Отзывов: 17"
   },
   {
     "test": "3.9a DELETE /users/:id/roles/master (деактивация)",
@@ -167,7 +167,7 @@
   {
     "test": "4.2 DELETE /admin/users/:id",
     "status": "PASS",
-    "details": "User dc35df6a... deleted"
+    "details": "User c0fb56ea... deleted"
   },
   {
     "test": "4.2b Customer → DELETE /admin/users → запрет",
@@ -177,7 +177,7 @@
   {
     "test": "4.3a GET /complaints (admin)",
     "status": "PASS",
-    "details": "Жалоб: 14"
+    "details": "Жалоб: 21"
   },
   {
     "test": "5.1 POST /complaints (создание)",
@@ -192,12 +192,12 @@
   {
     "test": "6.1 GET /chats (customer)",
     "status": "PASS",
-    "details": "Чатов: 18"
+    "details": "Чатов: 26"
   },
   {
     "test": "6.2a POST /chats (создание)",
     "status": "PASS",
-    "details": "Chat: ffacd782..."
+    "details": "Chat: 93700317..."
   },
   {
     "test": "6.3 POST /chats/:id/messages",
@@ -222,7 +222,7 @@
   {
     "test": "7.2 GET /notifications/unread-count",
     "status": "PASS",
-    "details": "Непрочитанных: 5"
+    "details": "Непрочитанных: 7"
   },
   {
     "test": "7.3 POST /notifications/read-all",
@@ -272,7 +272,7 @@
   {
     "test": "10.5 Рейтинг мастера обновлён",
     "status": "PASS",
-    "details": "Rating: 4.85, Completed: 42"
+    "details": "Rating: 4.85, Completed: 44"
   },
   {
     "test": "11.1 Customer → POST /offers → запрет",
